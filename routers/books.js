@@ -1,16 +1,27 @@
-const express = require('express');
-const {
-    addBook,
-    getBookById,
-    updateBook,
-    deleteBook,
-} = require('../controllers/books');
+const books = [];
 
-const router = express.Router();
+module.exports = [
+    {
+        method: 'GET',
+        path: '/books',
+        handler: (request,h) => {
+            return {
+                status: 'success',
+                data: { books }
+            };
+        }     
+        
+    },
+    {
+        method: ' POST',
+        path: '/book',
+        handler: (request, h) => {
+            const payload = request.payload;
+            return h.response({
+                status: 'success',
+                message: 'buku berhasil ditambah'
+            }).code(201);
+            }
+        }
 
-router.post('/', addBook);
-router.get('/:bookId', getBookById);
-router.put('/:bookId', updateBook);
-router.delete('/:bookId',deleteBook);
-
-module.exports = router;
+]

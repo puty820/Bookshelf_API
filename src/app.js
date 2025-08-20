@@ -1,8 +1,16 @@
-const express = require('express');
-const app = express();
-app.use(express.json());
+const hapi = require('@hapi/hapi');
+const booksRoutes = ('./routers/books');
 
-const booksRouter = require('../routers/books');
-app.use('/books', booksRouter);
+const init= async () => {
+    const server = hapi.server ( {
+        port: 9000,
+        host: 'localhost',
+        routes: {
+            cors: { origin: ['*']}
+        }
+    });
+server.route(boooksRoutes);
 
-module.exports = app;
+await server.start();
+console.log('server berjalan di ${server.info.uri}');
+};
